@@ -1,19 +1,15 @@
-# address-book
+# Clojure Address Book
 
-FIXME
-
-## Prerequisites
-
-You will need [Leiningen][] 2.0.0 or above installed.
-
-[leiningen]: https://github.com/technomancy/leiningen
+A simple address book web app built with Clojure.
 
 ## Running
 
-To start a web server for the application, run:
+Start a web server for the application by running: lein ring server
 
-    lein ring server
+####OR
+
+Play with the live app: https://clojure-address-book.herokuapp.com/
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015
