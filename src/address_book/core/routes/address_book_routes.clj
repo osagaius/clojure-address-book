@@ -5,7 +5,8 @@
                                                                  read-contact
                                                                  add-contact-form
                                                                  edit-contact]]
-            [address-book.core.models.query-defs :as query]))
+            [address-book.core.models.query-defs :as query]
+            [selmer.parser :as selmer :refer [render-file]]))
 
 (defn display-contact [contact contact-id]
   (if (not= (and contact-id (Integer. contact-id)) (:id contact))
@@ -21,16 +22,21 @@
 
 (defn get-route [request]
   (let [contact-id (get-in request [:params :contact-id])]
-    (common-layout
-      (for [contact (query/all-contacts)]
-        (display-contact contact contact-id))
-      (add-contact-form))))
+    (common-layout (query/all-contacts))))
+
+(defn get-contact [x]
+  (first (query/find-contact {:id (Integer. x)})))
+
+(defn edit-route [request]
+  (let [contact-id (get-in request [:params :contact-id])]
+    (render-file "templates/edit.html" {:contact (get-contact contact-id)})))
 
 (defn delete-route [request]
   (let [contact-id (get-in request [:params :contact-id])]
     (query/delete-contact<! {:id (Integer. contact-id)})
     (response/redirect "/")))
 
+(query/all-contacts)
 (defn update-route [request]
   (let [contact-id (get-in request [:params :id])
         name       (get-in request [:params :name])
@@ -42,6 +48,6 @@
 (defroutes address-book-routes
   (GET  "/"                   [] get-route)
   (POST "/post"               [] post-route)
-  (GET  "/edit/:contact-id"   [] get-route)
+  (GET  "/edit/:contact-id"   [] edit-route)
   (POST "/edit/:contact-id"   [] update-route)
   (POST "/delete/:contact-id" [] delete-route))

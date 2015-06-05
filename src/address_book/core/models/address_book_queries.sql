@@ -32,3 +32,9 @@ DELETE FROM contacts
 -- Update a single contact
 UPDATE contacts SET name = :name, phone = :phone, email = :email
     WHERE id = :id;
+
+-- name: find-contact
+-- Returns a single contact
+SELECT *
+FROM contacts
+WHERE id = :id;

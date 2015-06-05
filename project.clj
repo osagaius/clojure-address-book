@@ -13,7 +13,8 @@
                    [org.clojure/java.jdbc "0.3.6"]
                    [postgresql/postgresql "9.3-1102.jdbc41"]
                    [yesql                 "0.5.0-rc1"]
-                   [environ               "1.0.0"]]
+                   [environ               "1.0.0"]
+                   [selmer                "0.5.3"]]
 
   :plugins        [[lein-ring             "0.9.1"]
                    [lein-environ          "1.0.0"]]
